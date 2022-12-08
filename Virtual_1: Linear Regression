@@ -1,0 +1,23 @@
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import row64
+
+def LinReg(inDf, inInd1, inInd2):
+    values1 = inDf[inDf.columns[inInd1]]
+    values2 = inDf[inDf.columns[inInd2]]
+    fig, ax = plt.subplots(figsize = (9, 9))
+    ax.scatter(values1, values2, s=60, alpha=0.7, edgecolors="k")
+    b, a = np.polyfit(values1, values2, deg=1)
+    print("intercept: ", a)
+    print("coefficient: ", b)
+    xmin = min(values1)
+    xmax = max(values1)
+    xrng = xmax - xmin
+    xseq = np.linspace(xmin-.1*xrng, xmax+.1*xrng, num=10)
+    ax.plot(xseq, a + b * xseq, color="k", lw=2.5)
+
+#IMPORT("C:\Users\11134\Desktop\vgsales.csv")
+dfIn=row64.get_dataframe("Dataframe11")
+df=dfIn.copy(deep=True)
+LinReg(df,8,10)
